@@ -6,7 +6,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import data from '../../../data.json'; 
 import './Input.css';
 
 toast.configure();
@@ -83,11 +82,6 @@ function Input(props) {
                       notifySearchError();
                       console.log(error);
                   }
-                    // setSuggestions(data.map( city => ({
-                    //     name: city.LocalizedName,
-                    //     key: city.Key
-                    // }) ));
-
               }} 
               onSuggestionsClearRequested={()=> {
                   setSuggestions([]);
