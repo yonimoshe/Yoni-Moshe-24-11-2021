@@ -40,11 +40,6 @@ function Input(props) {
   
     },[city,cityCode])
 
-    useEffect(() => {
-        dispatch(fetchCurrentCityWeather("Tel-Aviv","215854"));
-        dispatch(fetchForecastCityWeather("215854")); 
-    },[])
-
     let tokan = process.env.REACT_APP_TOKAN_KEY;
     return (
         <div className="input-row">

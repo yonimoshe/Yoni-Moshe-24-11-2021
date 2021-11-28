@@ -41,7 +41,7 @@ function Favorites(props) {
     const goToChosenCity = (city,cityCode) => {
       dispatch(fetchCurrentCityWeather(city,cityCode));
       dispatch(fetchForecastCityWeather(cityCode));
-      navigate('/', {replace: true});
+      navigate('/');
     } 
 
     const notifyFavoritesError = () => {
