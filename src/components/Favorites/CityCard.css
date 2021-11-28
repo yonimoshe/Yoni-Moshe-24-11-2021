@@ -1,0 +1,25 @@
+.MuiCardContent-root.city-card > div {
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.MuiCardContent-root.city-card:hover{
+    background-color: #A5E6BA;
+    color: #fff;
+}
+
+
+.MuiTypography-root.city-card-title {
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+.MuiTypography-root.city-card-temp {
+     color: rgba(89, 0, 255, 0.781);
+     font-weight: 500;
+     font-size: 1.2rem;
+}
+.MuiTypography-root.city-card-description {
+    font-family: cursive;
+    letter-spacing: 1.9px;
+    font-size: 1.5rem;
+}

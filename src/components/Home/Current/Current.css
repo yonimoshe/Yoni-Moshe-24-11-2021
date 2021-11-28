@@ -1,0 +1,24 @@
+.current-container {
+    display: flex;;
+    justify-content: center;
+}
+
+.current-container > div {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.current-container > img {
+    margin-right: 0.5rem;
+}
+
+@media screen and (max-width: 960px) {
+    .current-container > div {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    
+    .current-container > img {
+        margin-right: 0rem;
+    }
+  }

@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import React from 'react';
+import Navigation from './components/Navigation/Navigation';
+import Home from './components/Home/Home';
+import Favorites from './components/Favorites/Favorites';
+
+import { Routes, Route } from 'react-router-dom';
+
 import './App.css';
 
 function App() {
+
+  // fav array hold the city name and code
+  let favs = JSON.parse(localStorage.getItem("favorites"))
+  if (!favs) {
+    localStorage.setItem("favorites", JSON.stringify([]))
+  }
+ 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <Navigation />
+       <main>
+         <Routes>
+           <Route path="/" element={<Home />} />
+           <Route path="/favorites" element={<Favorites />} />
+         </Routes>
+       </main>
     </div>
   );
 }
