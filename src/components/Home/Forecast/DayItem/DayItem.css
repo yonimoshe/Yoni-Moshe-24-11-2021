@@ -4,7 +4,7 @@
 
 .day-card-min-max-container {
     color: rgba(89, 0, 255, 0.781);
-    position: relative;
-    top: 30px;
+    /* position: relative;
+    top: 30px; */
     font-weight: 500;
 }
