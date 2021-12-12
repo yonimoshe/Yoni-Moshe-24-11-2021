@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback} from 'react';
 import Autosuggest from 'react-autosuggest';
 import { useDispatch } from 'react-redux';
 import { fetchCurrentCityWeather, fetchForecastCityWeather } from '../../../actions/actions';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { debounce } from '../../../functions/debounce';
 
 import './Input.css';
 
@@ -17,6 +18,7 @@ function Input(props) {
     const [isChoiceMade, setIsChoiceMade] = useState(false)
     const dispatch = useDispatch();
 
+    let tokan = process.env.REACT_APP_TOKAN_KEY;
     const notify = () => {
         toast.error("Sorry... English Please", {
             position: toast.POSITION.TOP_CENTER,
@@ -40,7 +42,31 @@ function Input(props) {
   
     },[city,cityCode])
 
-    let tokan = process.env.REACT_APP_TOKAN_KEY;
+    const func = useCallback(
+        debounce(
+            async ({value}) => {
+                if (!value) {
+                    setSuggestions([]);
+                    return;
+                }
+                try {
+                  const result = await axios.get(`https://dataservice.accuweather.com/locations/v1/cities/autocomplete?q=${value}&apikey=${tokan}`);
+                  setSuggestions(result.data.map( city => ({
+                      name: city.LocalizedName,
+                      key: city.Key
+                  }) ));
+                console.log("call made", value);
+                                        
+                } catch (error) {
+                    setSuggestions([]);
+                    notifySearchError();
+                    console.log(error);
+                }
+            }
+        ,2000)
+        ,[]) 
+
+
     return (
         <div className="input-row">
             <Autosuggest 
@@ -60,24 +86,7 @@ function Input(props) {
                 })
                }}
               suggestions={suggestions}
-              onSuggestionsFetchRequested={async ({value}) => {
-                  if (!value) {
-                      setSuggestions([]);
-                      return;
-                  }
-                  try {
-                    const result = await axios.get(`https://dataservice.accuweather.com/locations/v1/cities/autocomplete?q=${value}&apikey=${tokan}`);
-                    setSuggestions(result.data.map( city => ({
-                        name: city.LocalizedName,
-                        key: city.Key
-                    }) ));
-                                          
-                  } catch (error) {
-                      setSuggestions([]);
-                      notifySearchError();
-                      console.log(error);
-                  }
-              }} 
+              onSuggestionsFetchRequested={func} 
               onSuggestionsClearRequested={()=> {
                   setSuggestions([]);
               }}
